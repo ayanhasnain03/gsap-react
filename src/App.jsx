@@ -1,36 +1,29 @@
+import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
-import  gsap  from "gsap"
+import { useRef } from "react";
+gsap.registerPlugin(useGSAP);
 const App = () => {
+  const container = useRef();
   useGSAP(
     () => {
-      const tl = gsap.timeline();
-      tl.from(".logo", {opacity:0,duration:1,ease:"power1.out"})
-      .from(".links h1",{opacity:0,duration:0.5,ease:"power1.out", stagger:0.3})
-      .from(".link-btn",{opacity:0,duration:0.5,ease:"power1.out", stagger:0.3})
-    }
+        // ✅ safe, created during execution, selector text scoped
+        gsap.to('.box', { x: 100 });
+    },
+    { scope: container }
 );
+const onClick = () => {
+  gsap.to('.box', { rotation: 360 });
+}
+
   return (
-    <div>
-   <nav className="flex items-center justify-between px-8">
-    <div>
-      <h1 className="logo text-3xl font-bold ">Logo</h1>
-    </div>
-    <div className="links flex items-center  gap-8 ml-10 ">
-      <h1>Home</h1>
-      <h1>About</h1>
-      <h1>Contact</h1>
-      <h1>Blog</h1>
-      <h1>Careers</h1>
-      <h1>Services</h1>
-      <h1>Projects</h1>
-    </div>
-    <div className="link-btn flex items-center justify-between gap-5">
-      <button>Get Started</button>
-      <button>Login</button>
-      <button>Sign Up</button>
-    </div>
-   </nav>
-    </div>
+  <>
+<div ref={container} className=" flex items-center justify-center h-screen flex-col ">
+<div className="box h-[4rem] w-[4rem] bg-red-300"></div>
+<button className="rotate bg-black text-white p-1 mt-5 rounded" onClick={onClick}>Rotate</button>
+
+</div>
+
+  </>
   )
 }
 export default App
