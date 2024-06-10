@@ -12,7 +12,9 @@ const App = () => {
     { scope: container }
 );
 const onClick = () => {
-  gsap.to('.box', { rotation: 360 });
+  gsap.to('.box', { duration:2.5,
+    ease: "bounce.out",
+    y: -250 });
 }
 
   return (
